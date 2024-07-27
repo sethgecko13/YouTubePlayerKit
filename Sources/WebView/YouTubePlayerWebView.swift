@@ -45,14 +45,13 @@ final class YouTubePlayerWebView: WKWebView {
                 let configuration = WKWebViewConfiguration()
                 #if !os(macOS)
                 // Allows inline media playback
-                configuration.allowsInlineMediaPlayback = true
-		configuration.preferredContentMode = .mobile
+                configuration.allowsInlineMediaPlayback = false
+                configuration.defaultWebpagePreferences.preferredContentMode = .mobile
                 #endif
                 // Disable text interaction / selection
                 if #available(iOS 14.5, macOS 11.3, visionOS 1.0, *) {
                     configuration.preferences.isTextInteractionEnabled = false
                 }
-	        configuration.preferences.isTextInteractionEnabled = false
                 // No media types requiring user action for playback
                 configuration.mediaTypesRequiringUserActionForPlayback = []
                 // Return configuration
@@ -154,6 +153,7 @@ private extension YouTubePlayerWebView {
         self.scrollView.showsHorizontalScrollIndicator = false
         // Disable bounces of ScrollView
         self.scrollView.bounces = false
+
         #endif
     }
     
@@ -224,7 +224,6 @@ extension YouTubePlayerWebView {
         // Return success
         return true
     }
-    
 }
 
 // MARK: - WKPreferences+isFullscreenEnabled
